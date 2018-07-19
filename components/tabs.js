@@ -64,11 +64,12 @@ export class Tabs extends React.Component {
   buildTabsList = () => {
     return Children.map(this.filteredChildren(), (child, index) => {
       const title = child.props.title ? child.props.title : child.props.name;
+      const subtitle = child.props.subtitle;
       const name = child.props.name;
       const selected = this.state.selected
         ? this.state.selected === name
         : index === 0;
-      return { title, name, selected };
+      return { title, subtitle, name, selected };
     });
   };
 

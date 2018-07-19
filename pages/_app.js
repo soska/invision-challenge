@@ -11,7 +11,9 @@ export default class App extends NextApp {
       <Container>
         <Head title="Challenge" />
         <Header />
-        <Component {...pageProps} />
+        <div>
+          <Component {...pageProps} />
+        </div>
         <style jsx>{`
           :global(body) {
             margin: 0;
@@ -25,6 +27,10 @@ export default class App extends NextApp {
           :global(h4),
           :global(h5) {
             font-family: 'Eina 03';
+          }
+          div {
+            margin: 0 auto;
+            max-width: 1070px;
           }
         `}</style>
       </Container>
