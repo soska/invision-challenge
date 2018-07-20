@@ -3,11 +3,22 @@ import Timer from './timer';
 import * as colors from '../lib/colors';
 import ProgressBorder from './progress-border';
 
-export default ({ title, subtitle, progress, selected, onClick }) => (
+export default ({
+  title,
+  subtitle,
+  progress,
+  selected,
+  onClick,
+  timerActive,
+}) => (
   <a href={'#'} onClick={onClick} className={selected ? 'selected' : ''}>
     <span className="title">{title}</span>
     <span className="subtitle">{subtitle}</span>
-    <ProgressBorder selected={selected} progress={progress} />
+    <ProgressBorder
+      selected={selected}
+      progress={progress}
+      timerActive={timerActive}
+    />
     <style jsx>{`
       a {
         flex: 1;
@@ -18,6 +29,11 @@ export default ({ title, subtitle, progress, selected, onClick }) => (
         position: relative;
         margin: 0 10px;
         text-decoration: none;
+        color: ${colors.notBlack};
+      }
+
+      a.selected {
+        color: ${colors.pink};
       }
 
       a:first-child {
@@ -33,7 +49,9 @@ export default ({ title, subtitle, progress, selected, onClick }) => (
       .title {
         font-weight: 400;
         font-size: 20px;
-        color: ${colors.notBlack};
+        color: inherit;
+        transition-property: color;
+        transition-duration: 0.3s;
       }
       .subtitle {
         font-weight: 400;

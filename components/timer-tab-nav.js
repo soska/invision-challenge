@@ -3,6 +3,10 @@ import Timer from './timer';
 import Nav from './progress-nav';
 
 export default class TabsNav extends React.Component {
+  static defaultProps = {
+    duration: 40000,
+  };
+
   state = {
     timerActive: true,
   };
@@ -42,12 +46,13 @@ export default class TabsNav extends React.Component {
 
   render() {
     const { tabs, onChange } = this.props;
+    const { timerActive } = this.state;
     this.currentIndex();
     return (
       <Timer
         onLap={this.next()}
-        duration={10000}
-        active={this.state.timerActive}
+        duration={this.props.duration}
+        active={timerActive}
       >
         {progress => {
           return (
@@ -55,6 +60,7 @@ export default class TabsNav extends React.Component {
               progress={progress}
               tabs={tabs}
               changeHandler={this.handleChange}
+              timerActive={timerActive}
             />
           );
         }}

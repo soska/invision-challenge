@@ -3,11 +3,11 @@ export default class Timer extends React.Component {
   static defaultProps = {
     duration: 5000,
     active: true,
-    progress: 0,
   };
 
   state = {
     start: null,
+    progress: 0,
   };
 
   raf = null;
@@ -21,8 +21,10 @@ export default class Timer extends React.Component {
     let delta = timestamp - start;
     this.setState({ start });
     if (delta > this.props.duration) {
-      this.setState({ start: null });
-      this.props.onLap();
+      this.setState({ start: null, progress: 0 }, () => {
+        console.log('WILL LAP', this.state.progress);
+        this.props.onLap();
+      });
     }
     this.setState({
       progress: Math.floor((delta / this.props.duration) * 100),
