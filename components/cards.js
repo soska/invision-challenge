@@ -1,20 +1,39 @@
 import React from 'react';
 import * as colors from '../lib/colors';
 
-const { Provider, Consumer } = React.createContext(0);
+// We'll use a React Context to pass layout information to the cards
+const { Provider, Consumer } = React.createContext({ mod: 0, total: 1 });
 
 export const CardsLayout = ({ children }) => (
-  <Provider value={children.length % 3}>
-    <div>
-      {children}
+  <Provider
+    value={{
+      mod: children.length % 3, // this is useful for desktop layout
+      total: children.length, // this is useful for mobile layout
+    }}
+  >
+    <section>
+      <div>{children}</div>
       <style jsx>{`
-        div {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
+        @media (min-width: 641px) {
+          div {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+        }
+
+        @media (max-width: 640px) {
+          section {
+            padding-left: 30px;
+            margin-bottom: 50px;
+            overflow: auto;
+          }
+          div {
+            display: flex;
+          }
         }
       `}</style>
-    </div>
+    </section>
   </Provider>
 );
 
@@ -22,7 +41,9 @@ const getCardImageSrc = (src, mobile) =>
   `/static/images/${src}${mobile ? '--mobile' : ''}.png`;
 
 export const Card = props => (
-  <Consumer>{mod => <CardItem {...props} layout={`mod-${mod}`} />}</Consumer>
+  <Consumer>
+    {({ mod }) => <CardItem {...props} layout={`mod-${mod}`} />}
+  </Consumer>
 );
 
 const CardItem = ({ title, image, children, layout }) => (
@@ -76,13 +97,22 @@ const CardItem = ({ title, image, children, layout }) => (
         }
       }
       @media (max-width: 640px) {
+        .container {
+          margin-right: 30px;
+          width: 40%;
+          max-width: 150px;
+        }
         .desktop {
           display: none;
         }
         .mobile {
           display: block;
         }
-        .copy {
+        h2 {
+          font-size: 14px;
+          font-weight: 400;
+        }
+        .description {
           display: none;
         }
       }
@@ -93,8 +123,8 @@ const CardItem = ({ title, image, children, layout }) => (
 const CardImage = ({ src, mobile = false }) => (
   <div>
     {/* <img src={getCardImageSrc(src, mobile)} role="presentation" /> */}
-    <style jsx>
-      {`
+    <style jsx>{`
+      @media (min-width: 641px) {
         div {
           display: flex;
           width: 300px;
@@ -106,7 +136,26 @@ const CardImage = ({ src, mobile = false }) => (
           background-size: contain;
           background-repeat: no-repeat;
         }
-      `}
-    </style>
+        img {
+          display: none;
+        }
+      }
+      @media (max-width: 640px) {
+        div {
+          display: flex;
+          width: 150px;
+          height: 150px;
+          align-items: center;
+          justify-content: center;
+          background-image: url(${getCardImageSrc(src, mobile)});
+          background-position: top left;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        img {
+          display: none;
+        }
+      }
+    `}</style>
   </div>
 );

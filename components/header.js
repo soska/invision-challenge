@@ -13,6 +13,18 @@ export default () => (
         padding: 0;
         line-height: 1em;
       }
+
+      @media (max-width: 640px) {
+        header {
+          padding: 50px 30px;
+        }
+        h1 {
+          text-align: left;
+          font-size: 40px;
+          line-height: 1.3em;
+          letter-spacing: -0.05em;
+        }
+      }
     `}</style>
   </header>
 );

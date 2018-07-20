@@ -24,9 +24,14 @@ const TabsNav = ({ tabs, onChange }) => (
  *
  * TabPanel Component
  */
-export const TabPanel = ({ selected = true, children }) => {
+export const TabPanel = ({
+  selected = true,
+  children,
+  component: Component = 'div',
+  ...props
+}) => {
   if (selected) {
-    return children;
+    return <Component {...props}>{children}</Component>;
   } else {
     return null;
   }
