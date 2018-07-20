@@ -1,6 +1,8 @@
+import Section from '../section';
 import { CardsLayout, Card } from '../cards';
+
 export default () => (
-  <div>
+  <Section>
     <CardsLayout>
       <Card title="Prototype" image="cloud/prototyping">
         Transform static designs into versatile, clickable prototypes without
@@ -23,5 +25,5 @@ export default () => (
         Dropbox, JIRA, Trello, and more.
       </Card>
     </CardsLayout>
-  </div>
+  </Section>
 );

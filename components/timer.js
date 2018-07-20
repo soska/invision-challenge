@@ -22,7 +22,6 @@ export default class Timer extends React.Component {
     this.setState({ start });
     if (delta > this.props.duration) {
       this.setState({ start: null, progress: 0 }, () => {
-        console.log('WILL LAP', this.state.progress);
         this.props.onLap();
       });
     }

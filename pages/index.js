@@ -5,7 +5,7 @@ import CloudSection from '../components/sections/cloud';
 import DSMSection from '../components/sections/dsm';
 export default () => (
   <div>
-    <Tabs navComponent={TabsNav} selected={'cloud'}>
+    <Tabs navComponent={TabsNav}>
       <TabPanel
         title="Design & Prototype"
         subtitle="InVision Studio"

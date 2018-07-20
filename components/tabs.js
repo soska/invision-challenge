@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment, Children, cloneElement } from 'react';
 
 /**
@@ -50,8 +49,14 @@ export class Tabs extends React.Component {
 
   componentDidMount() {
     let isMobile = false;
+    // use window.matchMedia to show/hide nav
     if (window.matchMedia) {
-      isMobile = window.matchMedia('(max-width: 640px)').matches;
+      const query = window.matchMedia('(max-width: 640px)');
+      isMobile = query.matches;
+      // revisit this whenever the mediaquery changes.
+      query.onchange = ({ matches }) => {
+        this.setState({ isMobile: matches });
+      };
     }
     this.setState({ isMobile });
   }

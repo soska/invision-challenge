@@ -1,6 +1,7 @@
+import Section from '../section';
 import { CardsLayout, Card } from '../cards';
 export default () => (
-  <div>
+  <Section>
     <CardsLayout>
       <Card title="Sketch & Studio plugin" image="dsm/sketch-studio-plugin">
         Transform static designs into versatile, clickable prototypes without
@@ -23,5 +24,5 @@ export default () => (
         team’s global shared component libraries
       </Card>
     </CardsLayout>
-  </div>
+  </Section>
 );

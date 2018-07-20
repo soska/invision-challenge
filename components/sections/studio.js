@@ -1,6 +1,7 @@
+import Section from '../section';
 import { CardsLayout, Card } from '../cards';
 export default () => (
-  <div>
+  <Section>
     <CardsLayout>
       <Card title="Design Tool" image="studio/design-tools">
         Jump right into the screen design process with InVision Studio's
@@ -27,5 +28,5 @@ export default () => (
         collaboration for your whole team.
       </Card>
     </CardsLayout>
-  </div>
+  </Section>
 );
