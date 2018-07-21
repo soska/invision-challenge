@@ -1,49 +1,12 @@
 import React from 'react';
 import * as colors from '../lib/colors';
-
-// We'll use a React Context to pass layout information to the cards
-const { Provider, Consumer } = React.createContext({ mod: 0, total: 1 });
-
-export const CardsLayout = ({ children }) => (
-  <Provider
-    value={{
-      mod: children.length % 3, // this is useful for desktop layout
-      total: children.length, // this is useful for mobile layout
-    }}
-  >
-    <section>
-      <div>{children}</div>
-      <style jsx>{`
-        @media (min-width: 641px) {
-          div {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-          }
-        }
-
-        @media (max-width: 640px) {
-          section {
-            padding-left: 30px;
-            margin-bottom: 50px;
-            overflow: auto;
-          }
-          div {
-            display: flex;
-          }
-        }
-      `}</style>
-    </section>
-  </Provider>
-);
-
-const getCardImageSrc = (src, mobile) =>
-  `/static/images/${src}${mobile ? '--mobile' : ''}.png`;
+import { CardsLayoutContext } from './cards-layout';
+import CardImage from './card-image';
 
 export const Card = props => (
-  <Consumer>
+  <CardsLayoutContext.Consumer>
     {({ mod }) => <CardItem {...props} layout={`mod-${mod}`} />}
-  </Consumer>
+  </CardsLayoutContext.Consumer>
 );
 
 const CardItem = ({ title, image, children, layout }) => (
@@ -64,13 +27,48 @@ const CardItem = ({ title, image, children, layout }) => (
         padding: 0;
         max-width: 100%;
       }
+
+      @keyframes movein {
+        0% {
+          opacity: 0;
+          transform: translateY(10%);
+        }
+
+        75% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadein {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+
       @media (min-width: 641px) {
         .container {
           padding-top: 96px;
           width: 33%;
           max-width: 300px;
           text-align: center;
+          animation-name: movein;
+          animation-duration: 0.8s;
         }
+
+        .container:nth-child(2n) {
+          margin: 0 auto;
+          animation-duration: 0.6s;
+        }
+
         .container:nth-child(3n-1) {
           margin: 0 auto;
         }
@@ -101,6 +99,8 @@ const CardItem = ({ title, image, children, layout }) => (
           margin-right: 30px;
           width: 40%;
           max-width: 150px;
+          animation-name: fadein;
+          animation-duration: 1.1s;
         }
         .desktop {
           display: none;
@@ -113,46 +113,6 @@ const CardItem = ({ title, image, children, layout }) => (
           font-weight: 400;
         }
         .description {
-          display: none;
-        }
-      }
-    `}</style>
-  </div>
-);
-
-const CardImage = ({ src, mobile = false }) => (
-  <div>
-    {/* <img src={getCardImageSrc(src, mobile)} role="presentation" /> */}
-    <style jsx>{`
-      @media (min-width: 641px) {
-        div {
-          display: flex;
-          width: 300px;
-          height: 270px;
-          align-items: center;
-          justify-content: center;
-          background-image: url(${getCardImageSrc(src, mobile)});
-          background-position: center;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        img {
-          display: none;
-        }
-      }
-      @media (max-width: 640px) {
-        div {
-          display: flex;
-          width: 150px;
-          height: 150px;
-          align-items: center;
-          justify-content: center;
-          background-image: url(${getCardImageSrc(src, mobile)});
-          background-position: top left;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        img {
           display: none;
         }
       }

@@ -1,4 +1,5 @@
-import { CardsLayout, Card } from '../cards';
+import { CardsLayout } from '../cards-layout';
+import { Card } from '../cards';
 export default () => (
   <CardsLayout>
     <Card title="Sketch & Studio plugin" image="dsm/sketch-studio-plugin">
