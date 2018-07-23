@@ -65,7 +65,6 @@ const CardItem = ({ title, image, children, layout }) => (
         }
 
         .container:nth-child(2n) {
-          margin: 0 auto;
           animation-duration: 0.6s;
         }
 

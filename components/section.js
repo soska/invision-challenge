@@ -34,7 +34,7 @@ export default ({ children, title, subtitle }) => (
 
       @media (min-width: 641px) {
         section {
-          padding: 50px;
+          padding: 0;
           padding-bottom: 140px;
         }
 
