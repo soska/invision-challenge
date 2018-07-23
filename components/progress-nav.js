@@ -1,6 +1,4 @@
 import React from 'react';
-import Timer from './timer';
-import * as colors from '../lib/colors';
 import ProgressTabItem from './progress-tab-item';
 
 export default ({ progress, tabs, changeHandler, timerActive }) => (

@@ -1,10 +1,6 @@
 import NextHead from 'next/head';
 import { string } from 'prop-types';
 
-const defaultDescription = '';
-const defaultOGURL = '';
-const defaultOGImage = '';
-
 const Head = props => (
   <NextHead>
     <meta charSet="UTF-8" />
